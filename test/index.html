@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shamir's Secret Sharing (Constant Term)</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font and general layout */
+        body {
+            font-family: "Inter", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for better content flow */
+            min-height: 100vh;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 1rem; /* Rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 900px; /* Wider for two inputs */
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1; /* Light gray border */
+            border-radius: 0.5rem; /* Rounded corners */
+            font-size: 1rem;
+            resize: vertical; /* Allow vertical resizing for textareas */
+            min-height: 100px; /* Minimum height for textarea */
+            font-family: monospace; /* Monospace for code/JSON */
+        }
+        button {
+            padding: 0.75rem 1.5rem;
+            background-color: #4f46e5; /* Indigo */
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #4338ca; /* Darker indigo on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        .output-console {
+            background-color: #1e293b; /* Dark slate background */
+            color: #e2e8f0; /* Light text color */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            min-height: 200px;
+            max-height: 400px; /* Max height for scrollability */
+            overflow-y: auto; /* Scroll for long output */
+            font-family: monospace;
+            white-space: pre-wrap; /* Preserve whitespace and wrap text */
+            word-break: break-all; /* Break long words */
+        }
+        label {
+            font-weight: 600;
+            color: #334155; /* Dark gray text */
+            margin-bottom: 0.5rem;
+            display: block; /* Make label a block element for spacing */
+        }
+        h1 {
+            color: #1e293b;
+            font-size: 2.25rem; /* Larger heading */
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        .json-inputs-container {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+        .json-input-column {
+            flex: 1; /* Each column takes equal space */
+            min-width: 300px; /* Minimum width before wrapping */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container">
+        <h1>Shamir's Secret Sharing (Constant Term Reconstruction)</h1>
+
+        <div class="input-group">
+            <label for="primeInput" class="block text-gray-700 text-sm font-bold mb-2">
+                Prime Modulus:
+            </label>
+            <input type="text" id="primeInput"
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline rounded-lg"
+                   value="2n**256n - 2n**32n - 977n">
+            <p class="text-xs text-gray-500 mt-1">
+                A large prime number for modular arithmetic. Default is a 256-bit prime.
+            </p>
+        </div>
+
+        <div class="json-inputs-container">
+            <div class="json-input-column">
+                <label for="jsonInput1" class="block text-gray-700 text-sm font-bold mb-2">
+                    Test Case 1 JSON Input:
+                </label>
+                <textarea id="jsonInput1" rows="15" placeholder='Enter JSON for Test Case 1'
+                          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y rounded-lg"></textarea>
+            </div>
+
+            <div class="json-input-column">
+                <label for="jsonInput2" class="block text-gray-700 text-sm font-bold mb-2">
+                    Test Case 2 JSON Input:
+                </label>
+                <textarea id="jsonInput2" rows="15" placeholder='Enter JSON for Test Case 2'
+                          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y rounded-lg"></textarea>
+            </div>
+        </div>
+
+        <button id="runButton" class="w-full">Reconstruct Secrets for Both Test Cases</button>
+
+        <div class="output-group">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+                Output Console:
+            </label>
+            <div id="outputConsole" class="output-console">
+                <!-- Output will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to our JavaScript file -->
+    <script src="shamir.js"></script>
+</body>
+</html>
